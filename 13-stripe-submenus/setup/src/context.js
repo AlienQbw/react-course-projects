@@ -8,6 +8,7 @@ const AppProvider = ({ children }) => {
   const [isSubmenuOpen, setIsSubmenuOpen] = useState(false);
 
   const [location, setLocation] = useState({});
+  const [page, setPage] = useState({ page: '', links: [] });
 
   const openSidebar = () => {
     setIsSidebarOpen(true);
@@ -16,7 +17,9 @@ const AppProvider = ({ children }) => {
     setIsSidebarOpen(false);
   };
   const openSubmenu = (text, coordinates) => {
+    const page = sublinks.find((link) => link.page === text);
     setLocation(coordinates);
+    setPage(page);
     setIsSubmenuOpen(true);
   };
   const closeSubmenu = () => {
@@ -33,6 +36,7 @@ const AppProvider = ({ children }) => {
         openSidebar,
         closeSidebar,
         location,
+        page,
       }}
     >
       {children}
