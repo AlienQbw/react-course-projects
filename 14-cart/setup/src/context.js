@@ -27,6 +27,20 @@ const AppProvider = ({ children }) => {
   const deacrease = (id) => {
     dispatch({ type: 'DEACRESE', payload: id });
   };
+  const fetchData = async () => {
+    dispatch({ type: 'LOADING' });
+    const response = await fetch(url);
+    const cart = await response.json();
+    dispatch({ type: 'DISPLAY_ITEMS', payload: cart });
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    dispatch({ type: 'GET_TOTALS' });
+  }, [state.cart]);
+
   return (
     <AppContext.Provider
       value={{
